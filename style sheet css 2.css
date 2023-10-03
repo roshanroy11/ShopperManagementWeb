@@ -1,0 +1,65 @@
+.list-of-current-sales{
+
+    margin: 0px auto;
+
+    text-align:center;
+
+    padding: 5px;
+
+    border-style: hidden;
+
+    max-width: 70%;
+
+}
+
+.links-to-pages-for-footer{
+
+    text-align: center;
+
+    padding: 5px;
+
+}
+
+.marketing-ads{
+
+    text-align: center;
+
+    padding: 20px;
+
+    border-style: hidden;
+
+}
+
+.banner-area{
+
+    text-align: left;
+
+}
+
+main{
+
+    display: flex;
+
+}
+
+.company-logo{
+
+    display: flex;
+
+    justify-content: left;
+
+}
+
+.navigation-bar{
+    float: left;
+    font-family: "Courier New";
+    font-weight:bold;
+    font-size: 15px;
+}
+.navigation-bar a,footer a{
+    color: saddlebrown;
+    text-decoration: underline;
+    font-size:17px;
+    font-weight: bold;
+}
+
