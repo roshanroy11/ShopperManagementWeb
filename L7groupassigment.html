@@ -40,7 +40,7 @@
     </div>
     <div class="mb-3 container col-6">
        <label for="productcategory" class="form-select">Product Category:</label>
-    <select class="form-select" aria-label="Default select example" id="productcategory" name="productCategory">
+    <select class="form-select" aria-label="Default select example" id="productcategory" name="productCategory" onfocusout="validate(this)">
         <option selected></option>
         <option value="Mens Clothing">Mens Clothing</option>
         <option value="Womens Clothing">Womens Clothing</option>
@@ -52,9 +52,11 @@
     </div>
     <div class="mb-3 container col-6">
         <label for="unitofmeasurement" class="form-select">Product Unit of Measure:</label>
-        <select class="form-select" aria-label="Default select example" id="unitofmeasurement" name="productUOM">
+        <select class="form-select" aria-label="Default select example" id="unitofmeasurement" name="productUOM" onfocusout="validate(this)">
             <option selected></option>
             <option value="Piece">Piece</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
         </select>
         <div class="required">
             This field is required
@@ -80,21 +82,6 @@
         <button type="submit" class="btn btn-primary mx-2">Save</button>
     </div>
 </form>
-<script>
-    // Add an event listener for the form submission
-    document.getElementById("group-product-page").addEventListener("submit", function (event) {
-        var categorySelect = document.getElementById("productcategory");
-        var selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
-        var categoryError = document.getElementById("category-error");
-
-        if (selectedCategory === "Open this select menu") {
-            categoryError.style.display = "block"; // Display error message
-            event.preventDefault(); // Prevent form submission
-        } else {
-            categoryError.style.display = "none"; // Hide error message
-        }
-    });
-</script>
 <h2 style="text-align: center" ;> Search Product</h2>
 <div class="mb-3 container col-6">
     <label for="searchbar" class="form-label">Product ID:</label>
