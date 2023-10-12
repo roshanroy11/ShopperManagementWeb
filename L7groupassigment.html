@@ -10,6 +10,8 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
     <script src=L7groupjs.js></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href=L7cssfile.css rel="stylesheet">
     <style>
         .required
         {
@@ -88,13 +90,25 @@
     <input type="text" class="form-control" id="searchbar">
 </div>
 <div class="mb-3 container col-6 d-flex justify-content-center">
-    <button type="button" class="btn btn-primary mx-2">Search</button>
+    <button type="button" class="btn btn-primary mx-2" id="search">Search</button>
 </div>
 <hr>
 <pre id="jsonOutput">{}</pre>
 <div class="mb-3 container col-6 d-flex justify-content-center">
-    <button type="button" class="btn btn-primary mx-2">Update</button>
+    <button type="button" class="btn btn-primary mx-2" id="update">Update</button>
 </div>
 </body>
+<!-- "search" is id of search button, on click means when you click search button,addClass is css class that changes text color,jsonoutput is name of json object with form data in it-->
+<script>$("#search").on("click",function() {
+    $("#jsonOutput").eq(0).addClass('redtext');
+}); </script>
+
 
 </html>
+
+<!-- Dylan-created base html page without dropdowns
+    Zach-added two dropdown menus to html page
+    Roshan-added the validate function to make sure user doesn't put nothing on form
+    Angela-added the search bar,search button, and update button
+References-for initial storefront page we used zachs original storefront page
+            for signup form javascript we used zachs existing L5 javascript as a framework for our new signup page, then everybody added in the new stuff listed above.-->

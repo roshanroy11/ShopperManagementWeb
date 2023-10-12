@@ -47,3 +47,40 @@ document.addEventListener("DOMContentLoaded", function () {
         jsonOutput.textContent = JSON.stringify(jsonObject, null, 2);
     });
 });
+
+
+/*
+let jsonObject = {};
+
+document.addEventListener("DOMContentLoaded", function () {
+    const productmanagepage = document.getElementById("group-product-page");
+    const jsonOutput = document.getElementById("jsonOutput");
+
+    // ...
+
+    const updateButton = document.querySelector("button[type='button']");
+    updateButton.addEventListener("click", function () {
+        // Get the updated data from the form fields
+        const productId = document.getElementById("productid").value;
+        const productDescription = document.getElementById("productdescription").value;
+        const productCategory = document.getElementById("productcategory").value;
+        const unitOfMeasurement = document.getElementById("unitofmeasurement").value;
+        const productPrice = document.getElementById("productprice").value;
+        const productWeight = document.getElementById("productweight").value;
+
+        // Update the JSON object with the new data
+        jsonObject = {
+            productId: productId,
+            productDescription: productDescription,
+            productCategory: productCategory,
+            unitOfMeasurement: unitOfMeasurement,
+            productPrice: productPrice,
+            productWeight: productWeight,
+        };
+
+        // Display the updated JSON object
+        jsonOutput.textContent = JSON.stringify(jsonObject, null, 2);
+    });
+});
+
+ */
