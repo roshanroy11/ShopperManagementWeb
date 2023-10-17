@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        body {font-family: Arial, sans-serif; margin: 20px;}
+        h1 {text-align: center;}
+        #cart-items {border: 1px solid #ccc; padding: 10px;margin-bottom: 20px;}
+        .cart-item {display: flex;align-items: center;justify-content: space-between;margin-bottom: 10px;}
+        .cart-item img {width: 50px;height: 50px;object-fit: cover;margin-right: 10px;}
+        #cart-total {text-align: right;}
+        #checkout-btn {background-color: #4CAF50;color: white;padding: 10px 20px;border: none;cursor: pointer;}
+        #checkout-btn:hover {background-color: #45a049;}
+        <!--.column-label {font-weight: bold; text-align: center;}-->
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mt-4">Coffee Shop Shopping Cart</h1>
+    <div class="mb-3 container">
+        <select class="form-select" aria-label="Default select example" id="productname" name="productName">
+            <option selected></option>
+            <option value="Iced Coffee">Iced Coffee</option>
+            <option value="Donut">Donut</option>
+            <option value="Hot Coffee">Hot Coffee</option>
+        </select>
+    </div>
+    <div class="mb-3 container">
+        <button type="button" class="btn btn-primary mx-2" id="add">Add</button>
+    </div>
+    <div id="cart-items" class="mt-4">
+        <!--<div class="cart-item">
+            <div class="column-label">Image</div>
+            <div class="column-label">Product Name</div>
+            <div class="column-label">Price</div>
+        </div>-->
+        <!-- Cart items will be dynamically added here -->
+    </div>
+    <div id="cart-total" class="text-right mt-4">
+        <h3>Total: $<span id="total-amount">0</span></h3>
+        <button id="checkout-btn" class="btn btn-success">Checkout</button>
+    </div>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+    // Sample JSON product data
+    const products = [
+        {
+            productId: 1,
+            productName: "Iced Coffee",
+            price: 4,
+            image: "iced coffee L8.png"
+        },
+        {
+            productId: 2,
+            productName: "Donut",
+            price: 1,
+            image: "L8donut.png"
+        },
+        {   productId:3,
+            productName:"Hot Coffee",
+            price:2,
+            image: "L8hotcoffee.png"}
+        // Add more product objects as needed
+    ];
+
+    // Function to add a product to the cart
+    function addToCart(product) {
+        const cartItems = document.getElementById("cart-items");
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+
+        const itemImage = document.createElement("img");
+        itemImage.src = product.image;
+
+        const itemName = document.createElement("span");
+        itemName.textContent = product.productName;
+
+        const itemPrice = document.createElement("span");
+        itemPrice.textContent = "$" + product.price;
+
+        cartItem.appendChild(itemImage);
+        cartItem.appendChild(itemName);
+        cartItem.appendChild(itemPrice);
+
+        cartItems.appendChild(cartItem);
+    }
+
+    // Function to calculate and update the total amount
+    function updateTotal() {
+        const cartItems = document.getElementsByClassName("cart-item");
+        let total = 0;
+
+        for (let i = 0; i < cartItems.length; i++) {
+            const itemPrice = parseFloat(cartItems[i].querySelector("span:last-child").textContent.slice(1));
+            total += itemPrice;
+        }
+
+        document.getElementById("total-amount").textContent = total.toFixed(2);
+    }
+
+    <!-- function used to display content from json object -->
+    function displayJSONContent() {
+        const jsonContent = document.getElementById("json-content");
+        jsonContent.innerHTML = '<h4>JSON Content:</h4><pre>' + JSON.stringify(products, null, 2) + '</pre>';
+    }
+    // Event listener for the checkout button
+    document.getElementById("checkout-btn").addEventListener("click", function() {
+        displayJSONContent();
+    });
+
+    // Sample usage: Adding products to the cart
+    addToCart(products[0]);
+    addToCart(products[1])
+    addToCart(products[2]);
+
+    // Sample usage: Updating the total amount
+    updateTotal();
+
+</script>
+
+<div id="json-content" class="mt-4">
+    <!-- JSON content will be displayed here -->
+</div>
+</body>
+</html>
