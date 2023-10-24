@@ -12,7 +12,6 @@
         #cart-total {text-align: right;}
         #checkout-btn {background-color: #4CAF50;color: white;padding: 10px 20px;border: none;cursor: pointer;}
         #checkout-btn:hover {background-color: #45a049;}
-        <!--.column-label {font-weight: bold; text-align: center;}-->
         .fullscreenwidth{width:100%;}
     </style>
 </head>
@@ -22,9 +21,8 @@
     <div class="mb-3 container">
         <select class="form-select fullscreenwidth" aria-label="Default select example" id="productname" name="productName">
             <option selected></option>
-            <option value="Iced Coffee">Iced Coffee</option>
-            <option value="Donut">Donut</option>
-            <option value="Hot Coffee">Hot Coffee</option>
+            <option value="Muffin">Muffin</option>
+            <option value="Crossiant">Crossiant</option>
         </select>
     </div>
     <div class="mb-3 container">
@@ -59,6 +57,20 @@
             productName:"Hot Coffee",
             price:2,
             image: "L8hotcoffee.png",
+            quantity: 0,
+        },
+        {
+            productId: 4,
+            productName: "Muffin",
+            price:2,
+            image:"L8muffin.png",
+            quantity:0,
+        },
+        {
+            productId: 5,
+            productName: "Crossiant",
+            price:3,
+            image:"L8crossiant.png",
             quantity: 0,
         }
         // Add more product objects as needed
