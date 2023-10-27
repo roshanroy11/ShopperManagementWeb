@@ -130,7 +130,9 @@
     ];
 
     // Function to add a product to the cart
+
     function addToCart(product) {
+
         const cartItems = document.getElementById("cart-items");
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
@@ -149,7 +151,7 @@
 
         const itemQuantity = document.createElement("input");
         itemQuantity.type = "number"; // Set the input type to number
-        itemQuantity.value = product.quantity;
+        itemQuantity.value = product.quantity || 0;
 
         itemQuantity.addEventListener("input", () =>{
             const newQuantity = parseInt(itemQuantity.value);
@@ -192,16 +194,22 @@
 
             if (itemProductId === productId) {
                 const productTotal = products[i].total;
-                updateTotal(productTotal);
+                products[i].total = 0; // Reset the product's total to 0
+
+                // Subtract the product total from the 'sum' variable
+                sum -= productTotal;
+
+                updateTotal(); // Update the displayed total
                 item.remove();
                 break;
             }
         }
     }
 
-
+let sum = 0;
     function calculateSumOfProductTotals() {
-        let sum = 0;
+        sum = 0;
+        //let sum = 0;
         for (const product of products) {
             sum += product.total;
         }
@@ -214,7 +222,6 @@
         const sumOfTotals = calculateSumOfProductTotals();
         totalAmount.textContent = sumOfTotals.toFixed(2);
     }
-
 
 
     <!-- function used to display content from json object -->
