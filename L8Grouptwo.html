@@ -166,7 +166,7 @@
 
         const removeButton = document.createElement("button");
         removeButton.textContent = "Remove";
-        removeButton.setAttribute("data-product-id", product.productId); // Set a custom attribute
+        removeButton.setAttribute("data-product-id", product.productId); 
 
         removeButton.addEventListener("click", (e) => {
             const productIdToRemove = e.target.getAttribute("data-product-id");
@@ -194,10 +194,12 @@
 
             if (itemProductId === productId) {
                 const productTotal = products[i].total;
-                products[i].total = 0; // Reset the product's total to 0
-
-                // Subtract the product total from the 'sum' variable
+                products[i].total = 0;
+                products[i].quantity = 0;
                 sum -= productTotal;
+
+                const itemQuantity = item.querySelector("input");
+                itemQuantity.value = 0;
 
                 updateTotal(); // Update the displayed total
                 item.remove();
