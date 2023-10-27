@@ -7,12 +7,46 @@
         body {font-family: Arial, sans-serif; margin: 20px;}
         h1 {text-align: center;}
         #cart-items {border: 1px solid #ccc; padding: 10px;margin-bottom: 20px;}
-        .cart-item {display: flex;align-items: center;justify-content: space-between;margin-bottom: 10px;}
+        .cart-item {display: flex;align-items: center;justify-content: space-between;margin-bottom: 5px;}
         .cart-item img {width: 50px;height: 50px;object-fit: cover;margin-right: 10px;}
         #cart-total {text-align: right;}
         #checkout-btn {background-color: #4CAF50;color: white;padding: 10px 20px;border: none;cursor: pointer;}
         #checkout-btn:hover {background-color: #45a049;}
         .fullscreenwidth{width:100%;}
+
+
+
+        .cart-item > * {
+            flex: 0;
+        }
+
+
+
+        .cart-header{
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        .column_image{
+            width: 20%;
+        }
+        .column_id{
+
+            width: 35%;
+        }
+        .column_name{
+            width: 35%;
+        }
+        .column_price{
+            width: 40%;
+        }
+        .column_quantity{
+            width: 50%;
+        }
+        .column_total{
+            width: 35%;
+        }
+
     </style>
 </head>
 <body>
@@ -21,6 +55,9 @@
     <div class="mb-3 container">
         <select class="form-select fullscreenwidth" aria-label="Default select example" id="productname" name="productName">
             <option selected></option>
+            <option value="Iced Coffee">Iced Coffee</option>
+            <option value="Donut">Donut</option>
+            <option value="Hot Coffee">Hot Coffee</option>
             <option value="Muffin">Muffin</option>
             <option value="Crossiant">Crossiant</option>
         </select>
@@ -29,6 +66,16 @@
         <button type="button" class="btn btn-primary mx-2" id="add">Add</button>
     </div>
     <div id="cart-items" class="mt-4">
+        <div class="cart-header">
+            <span class="column_image">Product Image</span>
+            <span class="column_id">Product ID</span>
+            <span class="column_name">Product Name</span>
+            <span class="column_price">Price</span>
+            <span class="column_quantity">Quantity</span>
+            <span class="column_total">Total</span>
+            <span class="column_action">Action</span>
+
+        </div>
     </div>
     <div id="cart-total" class="text-right mt-4">
         <h3>Total: $<span id="total-amount">0</span></h3>
@@ -40,38 +87,44 @@
     // Sample JSON product data
     const products = [
         {
+            image: "iced coffee L8.png",
             productId: 1,
             productName: "Iced Coffee",
             price: 4,
-            image: "iced coffee L8.png",
             quantity: 0,
+            total:0,
         },
         {
+            image: "L8donut.png",
             productId: 2,
             productName: "Donut",
             price: 1,
-            image: "L8donut.png",
             quantity: 0,
-        },
-        {   productId:3,
-            productName:"Hot Coffee",
-            price:2,
-            image: "L8hotcoffee.png",
-            quantity: 0,
+            total: 0,
         },
         {
+            image: "L8hotcoffee.png",
+            productId:3,
+            productName:"Hot Coffee",
+            price:2,
+            quantity: 0,
+            total:0,
+        },
+        {
+            image:"L8muffin.png",
             productId: 4,
             productName: "Muffin",
             price:2,
-            image:"L8muffin.png",
             quantity:0,
+            total:0,
         },
         {
+            image:"L8crossiant.png",
             productId: 5,
             productName: "Crossiant",
             price:3,
-            image:"L8crossiant.png",
             quantity: 0,
+            total:0,
         }
         // Add more product objects as needed
     ];
@@ -91,35 +144,78 @@
         const itemName = document.createElement("span");
         itemName.textContent = product.productName;
 
-
-        const itemQuantity = document.createElement("input");
-        itemQuantity.textContent = product.quantity;
-
         const itemPrice = document.createElement("span");
         itemPrice.textContent = "$" + product.price;
 
+        const itemQuantity = document.createElement("input");
+        itemQuantity.type = "number"; // Set the input type to number
+        itemQuantity.value = product.quantity;
+
+        itemQuantity.addEventListener("input", () =>{
+            const newQuantity = parseInt(itemQuantity.value);
+            product.quantity = newQuantity;
+            product.total = product.price * newQuantity;
+            itemTotal.textContent = "$" + product.total.toFixed(2);
+            updateTotal();
+        });
+
+        const itemTotal = document.createElement("span");
+        itemTotal.textContent = "$" + product.total;
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        removeButton.setAttribute("data-product-id", product.productId); // Set a custom attribute
+
+        removeButton.addEventListener("click", (e) => {
+            const productIdToRemove = e.target.getAttribute("data-product-id");
+            removeItem(productIdToRemove);
+        });
 
         cartItem.appendChild(itemImage);
         cartItem.appendChild(itemProductID);
         cartItem.appendChild(itemName);
-        cartItem.appendChild(itemQuantity);
         cartItem.appendChild(itemPrice);
+        cartItem.appendChild(itemQuantity);
+        cartItem.appendChild(itemTotal);
+        cartItem.appendChild(removeButton);
 
         cartItems.appendChild(cartItem);
+
+    }
+
+    function removeItem(productId) {
+        const cartItems = document.getElementById("cart-items").getElementsByClassName("cart-item");
+
+        for (let i = 0; i < cartItems.length; i++) {
+            const item = cartItems[i];
+            const itemProductId = item.querySelector("button").getAttribute("data-product-id");
+
+            if (itemProductId === productId) {
+                const productTotal = products[i].total;
+                updateTotal(productTotal);
+                item.remove();
+                break;
+            }
+        }
+    }
+
+
+    function calculateSumOfProductTotals() {
+        let sum = 0;
+        for (const product of products) {
+            sum += product.total;
+        }
+        return sum;
     }
 
     // Function to calculate and update the total amount
     function updateTotal() {
-        const cartItems = document.getElementsByClassName("cart-item");
-        let total = 0;
-
-        for (let i = 0; i < cartItems.length; i++) {
-            const itemPrice = parseFloat(cartItems[i].querySelector("span:last-child").textContent.slice(1));
-            total += itemPrice;
-        }
-
-        document.getElementById("total-amount").textContent = total.toFixed(2);
+        const totalAmount = document.getElementById("total-amount");
+        const sumOfTotals = calculateSumOfProductTotals();
+        totalAmount.textContent = sumOfTotals.toFixed(2);
     }
+
+
 
     <!-- function used to display content from json object -->
     function displayJSONContent() {
