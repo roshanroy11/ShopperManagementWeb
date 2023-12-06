@@ -3,18 +3,18 @@ app.get("/CreateProducts",function (req,res) {
         var mongodb = require('mongodb');
         var MongoClient = mongodb.MongoClient;
         res.header("Access-Control-Allow-Orgin","*");
-        console.log("productid: " + req.query.productId);
+        console.log("productid: " + req.query.ProductID);
         if(!req.query.productid) {
             console.log("missing the product ID");
             return res.send({"result": "missing the product name"});
         } else{
             var products = {
-                "ProductID": req.query.productId,
-                "ProductName": req.query.productDesc,
-                "ProductCategory": req.query.productCategory,
-                "ProductUnitOfMeasure": req.query.productUOM,
-                "ProductPrice": req.query.productPrice,
-                "ProductWeight": req.query.productWeight
+                "productID": req.query.ProductID,
+                "productdescription": req.query.ProductDescr,
+                "productcategory": req.query.ProductCategory,
+                "productUOM": req.query.ProductUOM,
+                "productprice": req.query.ProductPrice,
+                "productweight": req.query.ProductWeight
             }
             console.log(products);
             var  url = 'mongodb://localhost:27017';

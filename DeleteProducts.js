@@ -3,7 +3,7 @@ try {
     var mongodb = require('mongodb');
     var MongoClient = mongodb.MongoClient;
     res.header("Access-Control-Allow-Origin", "*");
-    if(!req.query.productId) {
+    if(!req.query.ProductID) {
         return res.send({"result": "missing the product ID"});
     } else {
         var url = 'mongodb://localhost:27017';
@@ -14,8 +14,8 @@ try {
         } else {
           const db = client.db('team004');
           const collection = db.collection('products');
-          const query = { ProductID:req.query.productId};
-          console.log("ProductID:" + req.query.productId);
+          const query = { productID:req.query.ProductID};
+          console.log("productID:" + req.query.ProductID);
           collection.deleteOne(query, function(err, obj) {
               if (err) throw err;
               client.close();

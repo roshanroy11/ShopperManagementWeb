@@ -3,7 +3,7 @@ try{
  var mongodb = require('mongodb');
  var MongoClient = mongodb.MongoClient;
     res.header("Acess-Control-Allow-Origin", "*");
-    if(!req.query.productId) {
+    if(!req.query.ProductID) {
         return res.send({"result": "missing the product ID"});
     } else {
         var url = 'mongodb://localhost:27017';
@@ -13,7 +13,7 @@ try{
         } else {
             var db = client.db('team004');
             var collection = db.collection('products');
-            collection.findOne({"ProductID": req.query.productId}, function (err, products) {
+            collection.findOne({"productID": req.query.ProductID}, function (err, products) {
                 if (err) throw err;
                 client.close();
                 console.log(products);
