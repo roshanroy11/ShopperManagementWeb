@@ -2,7 +2,7 @@ app.get("/CreateProducts",function (req,res) {
     try{
         var mongodb = require('mongodb');
         var MongoClient = mongodb.MongoClient;
-        res.header("Access-Control-Allow-Orgin","*");
+        res.header("Access-Control-Allow-Origin","*");
         console.log("productid: " + req.query.ProductID);
         if(!req.query.productid) {
             console.log("missing the product ID");
