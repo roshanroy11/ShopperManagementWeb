@@ -8,10 +8,10 @@ app.get("/CreateShopping_Cart",function (req,res) {
             console.log("missing the product Name");
             return res.send({"result": "missing the product name"});
         } else{
-            var products = {
+            var shopping_cart = {
                 "productName": req.query.ProductName
             }
-            console.log(products);
+            console.log(shopping_cart);
             var  url = 'mongodb://localhost:27017';
             MongoClient.connect(url, function (err,client){
                 if (err) {
@@ -19,8 +19,8 @@ app.get("/CreateShopping_Cart",function (req,res) {
                     return res.send({"result": "failed"});
                 } else {
                     var db = client.db("team004");
-                    var collection = db.collection('products');
-                    collection.insertOne(products, function (err,res){
+                    var collection = db.collection('shopping cart');
+                    collection.insertOne(shopping_cart, function (err,res){
                         if (err) throw err;
                         client.close();
                     });

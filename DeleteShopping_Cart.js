@@ -13,7 +13,7 @@ app.get("/DeleteShopping_Cart", function(req, res) {
                     return res.send({"result": "delete failed"});
                 } else {
                     const db = client.db('team004');
-                    const collection = db.collection('products');
+                    const collection = db.collection('shopping cart');
                     const query = { productName:req.query.ProductName};
                     console.log("productName:" + req.query.ProductName);
                     collection.deleteOne(query, function(err, obj) {
